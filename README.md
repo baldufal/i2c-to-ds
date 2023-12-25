@@ -5,6 +5,15 @@ We have many DS sensors and didn't want to/couldn't connect them all to a Raspbe
 We therefore created a small breakout board with an ATmega168(L) on it to read the sensors and make readings available via I2C.
 The devices are connected to 4 1-wire buses, which can be searched and read out through setting bits in the control register at `0x00`.
 
+## Board
+The board provides 4 independent 1-Wire buses á 4 3-pin connectors for DS sensors.
+The DS are powered by 5V, but the data line is pulled up to 3.3V (which is the supply voltage of the Atmega).
+
+Additionally there are 7 GPIO pins on the board, that can also be controlled via I2C.
+
+For monitoring/debugging, there are 2 LEDs that indicate working 3.3V and 5V voltages.
+Another 2 LEDs are controlled by the mC and indicate healthy operation (blinking @ 1Hz) and ongoing readouts (second LED on).
+
 ## I2C Interface
 The I2C interface exposes 254 8bit registers:
 Register | Semantics | Allowed values (writing)
@@ -24,6 +33,7 @@ Register | Semantics | Allowed values (writing)
 - The CRC is the 1-Wire CRC8. It is computed over register 4 and the following (actually used!) data bytes (end defined by the content of register 4).
 - Register 4 contains the number of data bytes that follow. All other registers will read as 0.
 
+During 1-Wire operations, no I2C communication is possible (interrupts disabled)!
 
 ## 1-Wire commands
 The four 1-Wire buses can be controlled by setting any of the 5 LSBs in the command register (only one at a time).
@@ -38,8 +48,8 @@ The conversion command depends on the 1-Wire addresses, that were previously fou
 A search on bus 0 will first reset all addresses. A search on any bus must not be triggered after a search on a bus with higher index was triggered.
 It is thereby strongly advised to set bits 0 to 3 in this order for initialization and then only set bit 3 for readout.
 
-## 1-Wire commands
-There are two test scripts, that allow sending 1-Wire commands and reading/setting GPIO values from a terminal.
+## Test scripts
+There are two python scripts, that allow sending 1-Wire commands and reading/setting GPIO values from a terminal on a Raspberry Pi.
 
 ## License
 MIT, but would be nice if you would link back here.
