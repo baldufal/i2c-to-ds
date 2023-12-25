@@ -27,7 +27,7 @@ Register | Semantics | Allowed values (writing)
 5 | Data Byte 1 | -
 6 | Data Byte 2| -
 7 | ... | -
-8 | Data Byte n-1 | -
+n+4 | Data Byte n-1 | -
 
 - Register 1 allows reading/setting the data direction (input or output) of the 7 GPIO pins.
 - Register 2 allows reading the state of input GPIOs and setting the state of output GPIOs.
