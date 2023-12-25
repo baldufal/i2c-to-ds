@@ -6,7 +6,7 @@ We therefore created a small breakout board with an ATmega168(L) on it to read t
 The devices are connected to 4 1-wire buses, which can be searched and read out through setting bits in the control register at `0x00`.
 
 ## Board
-The board provides 4 independent 1-Wire buses á 4 3-pin connectors for DS sensors.
+The board provides 4 independent 1-Wire buses with 4 3-pin connectors each.
 The DS are powered by 5V, but the data line is pulled up to 3.3V (which is the supply voltage of the Atmega).
 
 Additionally there are 7 GPIO pins on the board, that can also be controlled via I2C.
@@ -15,6 +15,7 @@ For monitoring/debugging, there are 2 LEDs that indicate working 3.3V and 5V vol
 Another 2 LEDs are controlled by the mC and indicate healthy operation (blinking @ 1Hz) and ongoing readouts (second LED on).
 
 ## I2C Interface
+The device address is `0x3f`.
 The I2C interface exposes 254 8bit registers:
 Register | Semantics | Allowed values (writing)
 ---|---|---
